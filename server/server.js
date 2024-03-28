@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -7,15 +9,20 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 require("./db/connection.js");
 const process = require('process');
-// require('dotenv').config('/kaayaclique/server/.env.example');
 const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
 const userdb = require('./model/userSchema.js');
-const morgan = require('morgan');
-require("dotenv").config();
-const clientid = process.env.GOOGLE_CLIENT_ID ;
-const clientsecret = process.env.GOOGLE_CLIENT_SECRET ;
+const GOOGLE_CLIENT_ID = require('./config/keys.js');
+const GOOGLE_CLIENT_SECRET = require('./config/keys.js');
+const EXPRESS_SESSION_SECRET = require('./config/keys.js');
+
+const clientid = process.env.GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID;
+const clientsecret = process.env.GOOGLE_CLIENT_SECRET || GOOGLE_CLIENT_SECRET;
+
+// importing routes
+const authRoutes = require('./routes/authRoute.js');
+
 
 app.use(cors(
     {
@@ -26,14 +33,14 @@ app.use(cors(
 ));
 
 app.use(express.json());
-app.use(morgan("dev"));
+
 
 //auth routes
 // app.use('/api/v1/auth',authRoutes);
 
 //setting up the session
 app.use(session({
-    secret: process.env.EXPRESS_SESSION_SECRET ,
+    secret: process.env.EXPRESS_SESSION_SECRET || EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 }));
@@ -62,6 +69,8 @@ passport.use(new OAuth2Strategy({
                 });
                 await user.save();
             }
+            
+
             return done(null, user);
         }
         catch(err){
@@ -94,11 +103,13 @@ app.get("/login/sucess",async(req,res)=>{
 })
 
 app.get("/logout",(req,res,next)=>{
-    req.logout(function(err){
+    req.session.destroy(function(err){
         if(err){return next(err)}
         res.redirect("http://localhost:3000");
     })
 });
+
+app.use("/api/v1/auth",authRoutes);
 // app.get("/", (req, res) => {
 //     app.use(express.static(path.resolve(__dirname, "kaayaclique", "build")));
 //     res.sendFile(path.resolve(__dirname, "kaayaclique", "build", "index.html"));

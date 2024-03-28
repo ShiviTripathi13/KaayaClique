@@ -1,6 +1,7 @@
+const MONGODB_URI = require('../config/keys');
+require('dotenv').config({ path: '../'});
 const mongoose = require('mongoose');
-require('dotenv').config();
-const uri = process.env.DATABASE_URL ;
+const uri = process.env.MONGODB_URI || MONGODB_URI;
 
 mongoose.connect(uri, {
         useNewUrlParser: true, 
