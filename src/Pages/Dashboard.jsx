@@ -22,8 +22,8 @@ const Dashboard = () => {
   }, [])
 
     return (
-        <div className="flex justify-center bg-pink-300">
-            <h1 className="text-4xl text-red-600"> Dashboard</h1>
+        <div className="flex justify-center min-h-screen  bg-purple-50">
+            <h1 className="text-4xl text-red-600 mt-4"> Dashboard</h1>
         </div>
     )
 };

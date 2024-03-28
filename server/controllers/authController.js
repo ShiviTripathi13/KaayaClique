@@ -2,7 +2,7 @@ require('dotenv').config();
 const authdb = require('../model/authSchema.js');
 const {hashPassword, comparePassword} = require('../helpers/authHelper');
 const JWT = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || "abcejdcwai342rp8&5@ert";
+const JWT_SECRET = process.env.JWT_SECRET || require('../config/keys.js').JWT_SECRET;
 
 const registerController = async (req, res) => {
     try {

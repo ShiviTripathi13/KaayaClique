@@ -1,5 +1,5 @@
 const JWT = require("jsonwebtoken");
-const JWT_SECRET = process.env.JWT_SECRET || require('../config/keys');
+const JWT_SECRET = process.env.JWT_SECRET || require('../config/keys').JWT_SECRET;
 
 const authdb = require('../model/authSchema');
 

@@ -6,16 +6,16 @@ const mongoose = require('mongoose');
 const port =  8000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 require("./db/connection.js");
 const process = require('process');
 const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
 const userdb = require('./model/userSchema.js');
-const GOOGLE_CLIENT_ID = require('./config/keys.js');
-const GOOGLE_CLIENT_SECRET = require('./config/keys.js');
-const EXPRESS_SESSION_SECRET = require('./config/keys.js');
+const GOOGLE_CLIENT_ID = require('./config/keys.js').GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = require('./config/keys.js').GOOGLE_CLIENT_SECRET;
+const EXPRESS_SESSION_SECRET = require('./config/keys.js').EXPRESS_SESSION_SECRET;
 
 const clientid = process.env.GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET || GOOGLE_CLIENT_SECRET;
@@ -36,14 +36,14 @@ app.use(express.json());
 
 
 //auth routes
-// app.use('/api/v1/auth',authRoutes);
+app.use('/api/v1/auth',authRoutes);
 
 //setting up the session
 app.use(session({
     secret: process.env.EXPRESS_SESSION_SECRET || EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-}));
+}, {expiresIn: '10m'}));
 
 //set up passport
 app.use(passport.initialize());
