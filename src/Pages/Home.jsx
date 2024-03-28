@@ -1,10 +1,11 @@
 import React from "react";
-import Carousel from "./ReactCarousel";
+import Carousel from "../Components/ReactCarousel";
 import image1 from "../assets/carousel-home-1.jpeg";
 import image2 from "../assets/carousel-home-2.jpeg";
 import image3 from "../assets/carousel-home-3.jpeg";
 import image4 from "../assets/carousel-lakme-4.jpeg";
 import image5 from "../assets/carousel-mcaffiene-1.jpeg";
+
 const Home = () => {
     let slides = [
         image1,
@@ -14,6 +15,7 @@ const Home = () => {
         image5
     ];
     return (
+        
         <div className="flex flex-wrap justify-center bg-gradient-to-t from-grey-100 to-zinc-50 min-h-screen mt-0 mb-60">
             {/* <h1 className="text-4xl text-purple-600 mt-4"> Home</h1> */}
             <div className="w-[50%]   pt-12"><Carousel slides={slides} /></div>
@@ -30,6 +32,7 @@ const Home = () => {
 
 
         </div>
+       
     )
 };
 
