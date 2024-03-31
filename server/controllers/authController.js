@@ -14,7 +14,7 @@ const registerController = async (req, res) => {
         const user = await authdb.findOne({ email });
         if (user) {
             return res.status(200).send({
-                succcess: true,
+                succcess: false,
                 message: "User already exists. Please login!",
             });
         }
@@ -29,16 +29,16 @@ const registerController = async (req, res) => {
         await newUser.save();
         
         res.status(201).send({
-            succcess: true,
+            success: true,
             message: "User registered successfully",
             newUser,
         });
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in registration",
-            err
+            error,
         });
     }
 }

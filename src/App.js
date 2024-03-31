@@ -9,6 +9,7 @@ import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import Contact from './Pages/Contact';
 import Policy from './Pages/Policy';
+import SignUp from './Components/SignUp';
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
       <Route path="/policy" element={<Policy/>} />
       <Route path="/dashboard" element={<Dashboard/>} />
       <Route path="/login" element={<Login/>} />
+      <Route path="/register" element={<SignUp/>} />
       <Route path="*" element={<Error/>} />
     </Routes>
     <Footer/>
