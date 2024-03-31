@@ -24,6 +24,9 @@ const Footer = () => {
                     <img className="w-14 h-14 ml-4 mr-4" src={instagram} alt="instagram"/>
                 </a>
             </div>
+            <div className="justify-center flex">
+                <p className=" mb-2 px-8 text-md text-zinc-300 font-serif">All Rights Reserved@KaayaClique</p>
+            </div>
         </div>
     )
 }
