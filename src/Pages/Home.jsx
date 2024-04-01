@@ -5,8 +5,12 @@ import image2 from "../assets/carousel-home-2.jpeg";
 import image3 from "../assets/carousel-home-3.jpeg";
 import image4 from "../assets/carousel-lakme-4.jpeg";
 import image5 from "../assets/carousel-mcaffiene-1.jpeg";
+import {useAuth} from "../context/authContext"; 
+
 
 const Home = () => {
+    const [auth, setAuth] = useAuth();
+
     let slides = [
         image1,
         image2,
@@ -26,6 +30,7 @@ const Home = () => {
             <div className="flex flex-col">
                 <div></div>
                 <div><p className=" text-pink-600 font-serif italic text-xl">Happy Skin 😍</p></div>
+                
                 <div></div>
             </div>
             

@@ -4,6 +4,7 @@ import google from "../assets/icons/google-ic.svg";
 import loginimage from "../assets/images/login-page.jpeg";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { useAuth } from "../context/authContext";
 
 const LoginAuth = () => {
     const loginWithGoogle = () => {
@@ -11,6 +12,7 @@ const LoginAuth = () => {
     }
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,6 +24,12 @@ const LoginAuth = () => {
             
             if (res && res.data.success === true) {
                 toast.success(res.data && res.data.message);
+                setAuth({
+                    ...auth,
+                    user: res.data.user,
+                    token: res.data.token,
+                });
+                localStorage.setItem("auth", JSON.stringify(res.data));
                 navigate("/");
             } else {
                 toast.error(res.data.message);

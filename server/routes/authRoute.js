@@ -8,5 +8,7 @@ router.post('/register', registerController);
 
 router.post('/login', loginController);
 
+
+
 router.get('/test', requireLogin, requireAdmin, testController);
 module.exports = router;
