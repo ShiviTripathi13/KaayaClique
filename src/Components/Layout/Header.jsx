@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {NavLink} from "react-router-dom";
 import logo from "../../assets/icons/Logo KaayaClique.png";
 import menuicon from "../../assets/icons/icon-menu.png";
-import cart from "../../assets/icons/icon-shopping-cart.png";
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../../context/authContext";
@@ -18,43 +17,40 @@ const Header = () => {
         "Access-Control-Allow-Credentials": true,
     }
     const getGoogleUserData = async () => {
-        try{
+        try {
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers });
-            console.log("response data user", response);
+            
             setUserdata(response.data.user);
-        } catch(err){
+            console.log("response data user", response);
+        } catch (err) {
             console.log("error", err);
         }
     }
-    // const getLoginUserData = async () => {
-    //     try{
-    //         const response = await axios.post("http://localhost:8000/api/v1/auth/login", { withCredentials: true, headers: headers });
-    //         console.log("response data user", response);
-    //         setUserdata(response.data.user);
-    //     } catch(err){
-    //         console.log("error", err);
-    //     }
-    // }
+
     const changeIsopen = () => {
         setIsOpen(!isOpen);
     }
     // logoout
     const logout = ()=>{
-        // window.open("http://localhost:8000/logout","_self")
-        
-        setAuth({
-            ...auth,
-            user: null,
-            token: ""
-        });
-        
-        localStorage.removeItem("auth");
+        // google logout handler
+        if(Object?.keys(userdata)?.length > 0) {window.open("http://localhost:8000/logout","_self")}
+        else{
+            // logout handler
+            setAuth({
+                ...auth,
+                user: null,
+                token: ""
+            });
+            
+            localStorage.removeItem("auth");
+           
+        }
     }
 
     useEffect(() => {
         getGoogleUserData()
         },
-        []
+        [userdata]
     );
     return (
         <>        
