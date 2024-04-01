@@ -5,17 +5,19 @@ import menuicon from "../../assets/icons/icon-menu.png";
 import cart from "../../assets/icons/icon-shopping-cart.png";
 import axios from "axios";
 import { useState } from "react";
+import { useAuth } from "../../context/authContext";
 
 
 const Header = () => {
     const [userdata, setUserdata] = useState({});
     const [isOpen, setIsOpen] = useState(false);
+    const [auth, setAuth] = useAuth();
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Access-Control-Allow-Credentials": true,
     }
-    const getUserData = async () => {
+    const getGoogleUserData = async () => {
         try{
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers });
             console.log("response data user", response);
@@ -24,16 +26,34 @@ const Header = () => {
             console.log("error", err);
         }
     }
+    // const getLoginUserData = async () => {
+    //     try{
+    //         const response = await axios.post("http://localhost:8000/api/v1/auth/login", { withCredentials: true, headers: headers });
+    //         console.log("response data user", response);
+    //         setUserdata(response.data.user);
+    //     } catch(err){
+    //         console.log("error", err);
+    //     }
+    // }
     const changeIsopen = () => {
         setIsOpen(!isOpen);
     }
     // logoout
     const logout = ()=>{
-        window.open("http://localhost:8000/logout","_self")
+        // window.open("http://localhost:8000/logout","_self")
+        
+        setAuth({
+            ...auth,
+            user: null,
+            token: ""
+        });
+        
+        localStorage.removeItem("auth");
     }
 
     useEffect(() => {
-        getUserData()},
+        getGoogleUserData()
+        },
         []
     );
     return (
@@ -57,14 +77,14 @@ const Header = () => {
                 <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Brand</NavLink>
                 <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Home</NavLink>
                 
-                { Object?.keys(userdata)?.length > 0 ? (
+                { (Object?.keys(userdata)?.length > 0) || (auth.user) ? (
                     <>
                         <NavLink to="/dashboard" className="mt-1  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50 sm:mt-0 sm:ml-2">Dashboard</NavLink>
                         <NavLink id = "cartimg" to="/cart" className=" px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50 sm:mt-0 sm:ml-2">
                             {/* <img  src = {cart} className=" w-50 h-auto"></img> */}
                             Cart
                         </NavLink>
-                        <button onClick={logout} className="  mr-8 block px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50 sm:mt-0 sm:ml-2" >Logout</button>
+                        <NavLink onClick={logout} to="/" className="  mr-8 block px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50 sm:mt-0 sm:ml-2" >Logout</NavLink>
                     </>
                 ) : (
                 <>
