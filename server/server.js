@@ -94,11 +94,12 @@ app.get("/auth/google/callback", passport.authenticate("google",{
 }));
 
 app.get("/login/sucess",async(req,res)=>{
-    // console.log("reqqqqq", req.user);
+    // console.log("reqqqqq", req);
     if(req.user){
-        res.status(200).json({message:"user Login",user:req.user})
+        res.status(200).send({ok: true, success: true, message:"user Login",user:req.user})
+       
     }else{
-        res.status(400).json({message:"Not Authorized"})
+        res.status(400).send({ok: false, success: false, message:"Not Authorized"})
     }
 })
 

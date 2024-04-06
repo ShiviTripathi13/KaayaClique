@@ -21,7 +21,7 @@ const Header = () => {
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers });
             
             setUserdata(response.data.user);
-            console.log("response data user", response);
+            // console.log("response data user", response);
         } catch (err) {
             console.log("error", err);
         }
@@ -50,7 +50,7 @@ const Header = () => {
     useEffect(() => {
         getGoogleUserData()
         },
-        [userdata]
+        []
     );
     return (
         <>        

@@ -1,5 +1,5 @@
 import {React, useState} from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import google from "../assets/icons/google-ic.svg";
 import loginimage from "../assets/images/login-page.jpeg";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,6 +13,8 @@ const LoginAuth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [auth, setAuth] = useAuth();
+
+    const location = useLocation();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +23,7 @@ const LoginAuth = () => {
                 email,
                 password,
             });
-            
+
             if (res && res.data.success === true) {
                 toast.success(res.data && res.data.message);
                 setAuth({
@@ -30,8 +32,10 @@ const LoginAuth = () => {
                     token: res.data.token,
                 });
                 localStorage.setItem("auth", JSON.stringify(res.data));
-                navigate("/");
-            } else {
+                navigate(location.state ||  "/");
+            } 
+            
+            else {
                 toast.error(res.data.message);
             }
         } catch (error) {
