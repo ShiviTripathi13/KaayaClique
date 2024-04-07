@@ -17,8 +17,8 @@ const authSchema = new Schema({
         required: true
     },
     role: {
-        type: String,
-        default: "user",
+        type: Number,
+        default: 0,
         
     }
 }, { timestamps: true });
