@@ -23,7 +23,7 @@ const requireLogin = (req, res, next) => {
 const requireAdmin = async (req, res, next) => {
     try {
         const user = await authdb.findById(req.user._id);
-        if(user.role !== "admin"){
+        if(user.role !== 1){
             return res.status(401).send({
                 success: false,
                 message: "You are not authorized to access this route"

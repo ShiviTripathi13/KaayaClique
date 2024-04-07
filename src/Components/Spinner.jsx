@@ -19,13 +19,11 @@ const Spinner = () => {
     , [counter, navigate, location]);
 
     return (
-        <div className="flex flex-row justify-center items-center h-screen">
-            
-            <button type="button" className="bg-indigo-500 ... flex align-middle" disabled>
+        <div className="flex  justify-center items-center h-screen">
+            <button type="button" className="text-pink-400 italic font-serif font-bold text-2xl ... flex align-middle" disabled>
                 <img src = {spinner} className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"/>
-                Please Login...
+                <h1 className="text-xl text-pink-300">Redirecting in {counter} seconds...</h1>
             </button>
-            <h1 className="text-2xl text-blue-400">Redirecting in {counter} seconds...</h1>
         </div>
     )
 }

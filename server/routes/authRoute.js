@@ -15,6 +15,11 @@ router.get('/userauth', requireLogin, (req, res) => {
     res.status(200).send({ok: true });
 });
 
+// admin authentication protected routes
+router.get('/adminauth', requireLogin, requireAdmin, (req, res) => {
+    res.status(200).send({ok: true });
+});
+
 // test route
 router.get('/test', requireLogin, requireAdmin, testController);
 module.exports = router;
