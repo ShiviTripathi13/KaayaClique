@@ -2,9 +2,9 @@ import {React, useState, useEffect} from "react";
 import spinner from "../assets/icons/icon-spinner.png";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const Spinner = () => {
+const Spinner = ({path = "login"}) => {
     const navigate = useNavigate();
-    const [counter, setCounter] = useState(5);
+    const [counter, setCounter] = useState(3);
     const location = useLocation();
 
     useEffect(() => {
@@ -12,11 +12,11 @@ const Spinner = () => {
             setCounter(counter => counter - 1);
         }, 1000);
         if (counter === 0) {
-            navigate("/login", { state:  location.pathname  });
+            navigate(`${path}`, { state:  location.pathname  });
         }
         return () => clearInterval(interval);
     }
-    , [counter, navigate, location]);
+    , [counter, navigate, location, path]);
 
     return (
         <div className="flex  justify-center items-center h-screen">

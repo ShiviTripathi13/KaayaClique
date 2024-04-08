@@ -13,12 +13,16 @@ const AdminRoute = () => {
     
     useEffect(() => { 
         const authCheck = async () => {
-            const loginresponse = await axios.get('/api/v1/auth/adminauth') ;
-            
-            if (loginresponse.data.ok)  {
-                setOk(true);
-            } else {
-                setOk(false);
+            try{
+                const loginresponse = await axios.get('/api/v1/auth/adminauth') ;
+                
+                if (loginresponse.data.ok)  {
+                    setOk(true);
+                } else {
+                    setOk(false);
+                }
+            } catch (err) {
+                console.log("error", err);
             }
         }
         if(auth?.token ){
@@ -27,7 +31,7 @@ const AdminRoute = () => {
     
     }, [auth?.token]);
 
-    return (ok  ) ? <Outlet/> : <Spinner/>;
+    return (ok  ) ? <Outlet/> : <Spinner path=""/>;
 }
 
 export default AdminRoute;
