@@ -23,6 +23,7 @@ const clientsecret = process.env.GOOGLE_CLIENT_SECRET || GOOGLE_CLIENT_SECRET;
 // importing routes
 const authRoutes = require('./routes/authRoute.js');
 const categoryRoutes = require('./routes/categoryRoute.js');
+const productRoutes = require('./routes/productRoutes.js');
 
 // middlewares
 app.use(cors(
@@ -119,6 +120,7 @@ app.get("/logout",(req,res,next)=>{
 // routes
 app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/category",categoryRoutes);
+app.use("/api/v1/product",productRoutes);
 
 // connection to the port/server
 app.listen(port, () => {
