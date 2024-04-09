@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const AdminMenu = () => {
     return (
-        <div className="flex flex-col justify-start  p-2 bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200  border rounded-md border-pink-300 sm:h-80 h-auto">
+        <div className="flex flex-col justify-start  p-2 bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200  border rounded-md border-pink-300 sm:h-80 h-auto min-h-screen">
             <div>
                 <h1 className="text-2xl font-bold ">Admin Menu</h1>
                 <hr className="bg-zinc-400 mt-2 w-60"></hr>
