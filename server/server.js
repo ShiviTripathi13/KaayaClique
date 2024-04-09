@@ -6,24 +6,25 @@ const mongoose = require('mongoose');
 const port =  8000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
 require("./db/connection.js");
 const process = require('process');
 const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
 const userdb = require('./model/userSchema.js');
+
+// keys
 const GOOGLE_CLIENT_ID = require('./config/keys.js').GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = require('./config/keys.js').GOOGLE_CLIENT_SECRET;
 const EXPRESS_SESSION_SECRET = require('./config/keys.js').EXPRESS_SESSION_SECRET;
-
 const clientid = process.env.GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET || GOOGLE_CLIENT_SECRET;
 
 // importing routes
 const authRoutes = require('./routes/authRoute.js');
+const categoryRoutes = require('./routes/categoryRoute.js');
 
-
+// middlewares
 app.use(cors(
     {
         origin: 'http://localhost:3000',
@@ -31,7 +32,6 @@ app.use(cors(
         credentials: true
     }
 ));
-
 app.use(express.json());
 
 
@@ -49,6 +49,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// google auth using passport
 passport.use(new OAuth2Strategy({
     clientID: clientid,
     clientSecret: clientsecret,
@@ -79,20 +80,24 @@ passport.use(new OAuth2Strategy({
     }
 ));
 
+// serialize user
 passport.serializeUser((user, done) => {
     done(null, user);
 });
 
+// deserialize user
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
+// google auth success/failure redirect route
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 app.get("/auth/google/callback", passport.authenticate("google",{
     successRedirect: "http://localhost:3000/",
     failureRedirect: "http://localhost:3000/login",
 }));
 
+// google login success/failure route
 app.get("/login/sucess",async(req,res)=>{
     // console.log("reqqqqq", req);
     if(req.user){
@@ -103,6 +108,7 @@ app.get("/login/sucess",async(req,res)=>{
     }
 })
 
+// google logout
 app.get("/logout",(req,res,next)=>{
     req.session.destroy(function(err){
         if(err){return next(err)}
@@ -110,11 +116,11 @@ app.get("/logout",(req,res,next)=>{
     })
 });
 
+// routes
 app.use("/api/v1/auth",authRoutes);
-// app.get("/", (req, res) => {
-//     app.use(express.static(path.resolve(__dirname, "kaayaclique", "build")));
-//     res.sendFile(path.resolve(__dirname, "kaayaclique", "build", "index.html"));
-// });
+app.use("/api/v1/category",categoryRoutes);
+
+// connection to the port/server
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`);
 });
