@@ -7,7 +7,6 @@ const { categoryController,
         getSingleCategoryController,
         deleteCategoryController } = require('../controllers/categoryController.js');
 const { requireLogin, requireAdmin} = require('../middlewares/authMiddleware.js');
-const { get } = require('mongoose');
 
 // category route
 router.post('/create-category', requireLogin, requireAdmin, categoryController);
