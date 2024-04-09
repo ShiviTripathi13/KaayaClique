@@ -45,8 +45,8 @@ const categoryController = async (req, res) => {
 const updateCategoryController = async (req, res) => {
     try {
         const {name} = req.body;
-        
-       const category = await categorydb.findOneAndUpdate({slug: req.params.slug}, {name, slug: slugify(name)}, {new: true});
+        const {id} = req.params;
+       const category = await categorydb.findByIdAndUpdate(id, {name, slug: slugify(name)}, {new: true});
        res.status(200).send({
            success: true,
            message: "Category updated successfully",
@@ -100,8 +100,8 @@ const getSingleCategoryController = async (req, res) => {
 
 const deleteCategoryController = async (req, res) => {
     try {
-        const {slug} = req.params;
-        await categorydb.findOneAndDelete(slug);
+        const {id} = req.params;
+        await categorydb.findByIdAndDelete(id);
         res.status(200).send({
             success: true,
             message: "Category deleted successfully",

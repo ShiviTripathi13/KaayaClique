@@ -12,7 +12,7 @@ const { requireLogin, requireAdmin} = require('../middlewares/authMiddleware.js'
 router.post('/create-category', requireLogin, requireAdmin, categoryController);
 
 // update category 
-router.put('/update-category/:slug', requireLogin, requireAdmin, updateCategoryController);
+router.put('/update-category/:id', requireLogin, requireAdmin, updateCategoryController);
 
 // get all categories
 router.get('/all-category', getAllCategoryController);
@@ -21,5 +21,5 @@ router.get('/all-category', getAllCategoryController);
 router.get('/single-category/:slug', getSingleCategoryController);
 
 // delete category
-router.delete('/delete-category/:slug', requireLogin, requireAdmin, deleteCategoryController);
+router.delete('/delete-category/:id', requireLogin, requireAdmin, deleteCategoryController);
 module.exports = router;
