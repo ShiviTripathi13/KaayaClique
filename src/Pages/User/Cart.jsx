@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { useAuth } from "../context/authContext";
+// import { useAuth } from "../context/authContext";
 import axios from "axios";
+import UserMenu from "../../Components/Layout/UserMenu";
 
 const Cart = () => {
-    const [auth, setAuth] = useAuth();
+    // const [auth, setAuth] = useAuth();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const getProducts = async () => {
@@ -19,12 +20,12 @@ const Cart = () => {
     }   
     , []);
     return(
-        <div className="flex justify-start p-2 min-h-screen">
-            <div className="p-2 m-2 w-auto border border-pink-300 font-serif rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200">
-                <h5 className="text-md font-semibold ">Filter By Categories</h5>
+        <div className="flex sm:flex-row flex-col justify-start p-2 min-h-screen">
+            <div className="   mt-2" >
+                <UserMenu />
             </div>
-            <div className="flex flex-col w-full  overflow-scroll scroll-m-1  m-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif max-h-screen  ">
-            <div><h1 className="text-2xl font-serif font-semibold m-4 ">Product List</h1></div>
+            <div className="flex flex-col w-full  overflow-scroll scroll-m-1  mt-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif max-h-screen  ">
+            <div><h1 className="text-2xl font-serif font-semibold m-4 ">Cart Items</h1></div>
                     <div className=" ">
                     {products?.map((product) => (
                         
