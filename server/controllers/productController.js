@@ -173,9 +173,89 @@ const updateProductController = async (req, res) => {
     }
 }
 
+// product filters controller
+const productFiltersController = async (req, res) => {
+    try {
+        const {checked, radio} = req.body;
+        let arg = {}
+        if(checked.length > 0){
+            arg.category = checked;
+        }
+        if(radio.length){
+            arg.price = {
+                $gte: radio[0],
+                $lte: radio[1]
+            }
+        }
+        const products = await productdb.find(arg);
+                                        
+        res.status(200).send({
+            success: true,
+            message: "Product filters",
+            products,
+            
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in fetching product filters",
+            error: error.message,
+        });
+    }
+}
+
+// product count controller
+const productCountController = async (req, res) => {
+    try {
+        const productCount = await productdb.find({}).estimatedDocumentCount();
+        res.status(200).send({
+            success: true,
+            message: "Product count",
+            productCount,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in fetching product count",
+            error: error.message,
+        });
+    }
+}
+
+// product per page controller
+const productPerPageController = async (req, res) => {
+    try {
+        const page = req.params.page ? req.params.page : 1;
+        const perPage = 5;
+        const products = await productdb.find({})
+                                        .select("-photo")
+                                        .skip((page - 1) * perPage)
+                                        .limit(perPage)
+                                        .sort({createdAt: -1});
+        res.status(200).send({
+            success: true,
+            message: "Products per page",
+            products,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "Something went wrong in fetching products per page",
+            error: error.message,
+        });
+    }
+
+}
+
 module.exports = {createProductController, 
                     getAllProductsController,
                     getSingleProductController,
                     productPhotoController,
                     deleteProductController,
-                    updateProductController};
+                    updateProductController,
+                    productFiltersController,
+                    productCountController,
+                    productPerPageController};
