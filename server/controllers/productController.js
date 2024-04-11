@@ -112,7 +112,7 @@ const productPhotoController = async (req, res) => {
 
 const deleteProductController = async (req, res) => {
     try{
-        await productdb.findOneAndDelete({slug:req.params.slug}).select("-photo");
+        await productdb.findByIdAndDelete(req.params.pid).select("-photo");
         res.status(200).send({success: true, message: "Product deleted successfully"});
 
     } catch (error) {
@@ -129,7 +129,7 @@ const updateProductController = async (req, res) => {
     try {
         const { name, slug, price, description, category, quantity, shipping } = req.fields;
         const { photo } = req.files;
-
+        console.log("photo",photo);
         // check if all fields are filled
        switch (true) {
             case !name:
@@ -142,8 +142,8 @@ const updateProductController = async (req, res) => {
                 return res.status(500).send({ error: "Category is required" });
             case !quantity:
                 return res.status(500).send({ error: "Quantity is required" });
-            case !photo && photo.size > 1000000:
-                return res.status(500).send({ error: "Photo is required and should be less than 1MB" }) ;
+            // case !photo :
+            //     return res.status(500).send({ error: "Photo is required and should be less than 1MB" }) ;
         }
         // create new product
         const products = await productdb.findByIdAndUpdate(req.params.pid,
@@ -165,7 +165,7 @@ const updateProductController = async (req, res) => {
         
     } catch (error) {
         console.log(error); 
-        res.status(500).send({
+        res.status(501).send({
             success: false,
             message: "Something went wrong in updating product",
             error: error.message,

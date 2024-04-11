@@ -55,7 +55,7 @@ const LoginAuth = () => {
                         </div>                
                         <div className={"flex flex-col justify-end m-4"}>
                         
-                            <label htmlFor="email" className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-2">Email</label>
+                            <label className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-2">Email</label>
                             <input id={"email"}
                                 type={"email"}
                                 value={email}
@@ -65,7 +65,7 @@ const LoginAuth = () => {
                                 autoComplete={"email"}
                                 className="items-start justify-start max-w-full mr-2 h-10 px-4 ml-2 mt-2 text-base bg-blue-100 placeholder-gray-400 italic font-serif border rounded-lg focus:shadow-outline"/>
 
-                            <label htmlFor="password" className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-6">Password</label>
+                            <label  className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-6">Password</label>
                             <input id={"password"}
                                 type={"password"}
                                 value={password}
