@@ -8,7 +8,10 @@ const { createProductController,
         getSingleProductController,
         productPhotoController,
         deleteProductController,
-        updateProductController } = require('../controllers/productController.js');
+        updateProductController,
+        productFiltersController,
+        productCountController,
+        productPerPageController } = require('../controllers/productController.js');
 
 // create product
 router.post('/create-product', requireLogin, requireAdmin, formidable(), createProductController);
@@ -27,6 +30,15 @@ router.delete('/delete-product/:pid', deleteProductController);
 
 // update product
 router.put('/update-product/:pid', requireLogin, requireAdmin, formidable(), updateProductController);
+
+// filter products
+router.post('/product-filters', productFiltersController);
+
+// product count
+router.get('/product-count', productCountController);
+
+// product per page
+router.get('/product-per-page/:page', productPerPageController);
 
 
 module.exports = router;
