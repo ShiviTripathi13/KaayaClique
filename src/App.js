@@ -22,6 +22,7 @@ import DisplayProducts from './Pages/Admin/DisplayProducts';
 import UpdateProduct from './Pages/Admin/UpdateProduct';
 import Landing from './Pages/Landing';
 import Cart from './Pages/User/Cart';
+import SearchProduct from './Pages/SearchProduct';
 function App() {
   return (
     <Router>
@@ -29,6 +30,7 @@ function App() {
     <Routes>
     <Route path="/" element={<Landing/>} />
       <Route path="/home" element={<Home/>} />
+      <Route path="/search" element={<SearchProduct/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/cart" element={<Cart/>} />
       <Route path="/contact" element={<Contact/>} />

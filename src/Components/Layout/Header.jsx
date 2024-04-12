@@ -8,8 +8,7 @@ import { useAuth } from "../../context/authContext";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
-
+import SearchInput from "../Forms/SearchInput";
 
 const Header = () => {
     const [userdata, setUserdata] = useState({});
@@ -72,6 +71,9 @@ const Header = () => {
                         <img  src={menuicon} alt="menu" className="h-6 w-6 fill-current"/>
                     </button>
                 </div>
+            </div>
+            <div>
+                <SearchInput />
             </div>
             <nav className= { `${isOpen ? 'grid justify-center' : 'hidden' } px-2 pt-2 pb-4 sm:flex sm:p-0 sm:justify-center`}>
                 
