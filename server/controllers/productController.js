@@ -250,6 +250,39 @@ const productPerPageController = async (req, res) => {
 
 }
 
+// search product controller
+const searchProductController = async (req, res) => {
+    try {
+        const {keyword } = req.params;
+        if(!keyword){
+            return res.status(400).send({error: "Keyword is required"});
+        }
+        const products = await productdb.find({
+                                            $or: [
+                                                {name: {$regex: keyword, $options: 'i'}},
+                                                {description: {$regex: keyword, $options: 'i'}},
+                                             
+                                            ]
+                                        })
+                                        .select("-photo");
+        // res.json(products);
+                                        
+        res.status(200).send({
+            success: true,
+            message: "Search result",
+            products,
+        });
+        // console.log(products);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in searching products",
+            error,
+        });
+    }
+}
+
 module.exports = {createProductController, 
                     getAllProductsController,
                     getSingleProductController,
@@ -258,4 +291,5 @@ module.exports = {createProductController,
                     updateProductController,
                     productFiltersController,
                     productCountController,
-                    productPerPageController};
+                    productPerPageController,
+                    searchProductController};

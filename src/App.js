@@ -20,13 +20,19 @@ import Profile from './Pages/User/Profile';
 import Orders from './Pages/User/Orders';
 import DisplayProducts from './Pages/Admin/DisplayProducts';
 import UpdateProduct from './Pages/Admin/UpdateProduct';
+import Landing from './Pages/Landing';
+import Cart from './Pages/User/Cart';
+import SearchProduct from './Pages/SearchProduct';
 function App() {
   return (
     <Router>
     <Header/>
     <Routes>
-      <Route path="/" element={<Home/>} />
+    <Route path="/" element={<Landing/>} />
+      <Route path="/home" element={<Home/>} />
+      <Route path="/search" element={<SearchProduct/>} />
       <Route path="/about" element={<About/>} />
+      <Route path="/cart" element={<Cart/>} />
       <Route path="/contact" element={<Contact/>} />
       <Route path="/policy" element={<Policy/>} />
       <Route path="/dashboard" element={<PrivateRoute />} >

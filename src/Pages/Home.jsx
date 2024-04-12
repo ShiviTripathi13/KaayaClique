@@ -106,7 +106,7 @@ const Home = () => {
     }   
     , [checked, radio]);
     return(
-        <div className="flex justify-start p-2 min-h-screen">
+        <div className="flex justify-start text-pink-400 p-2 min-h-screen">
             {/* Category Filter */}
             <div className="p-2 m-2 w-auto border border-pink-300 font-serif rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200">
                 <div className="mb-2">
@@ -144,10 +144,10 @@ const Home = () => {
                             }}>
                         Reset Filters 
                     </button>                   
-                    </div>
+                </div>
             </div>
             <div className="flex flex-col w-full  overflow-scroll scroll-m-1  m-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif max-h-screen  ">
-            <div><h1 className="text-2xl font-serif font-semibold m-4 ">Product List</h1></div>
+            <div><h1 className="text-2xl font-serif font-semibold m-4 ">Welcome to KaayaClique!</h1></div>
                     <div className=" grid grid-cols-4 rounded-lg overflow-scroll">
                     {products?.map((product) => (
                         

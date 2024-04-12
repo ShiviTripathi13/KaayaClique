@@ -8,8 +8,7 @@ import { useAuth } from "../../context/authContext";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-
-
+import SearchInput from "../Forms/SearchInput";
 
 const Header = () => {
     const [userdata, setUserdata] = useState({});
@@ -73,17 +72,20 @@ const Header = () => {
                     </button>
                 </div>
             </div>
+            <div>
+                <SearchInput />
+            </div>
             <nav className= { `${isOpen ? 'grid justify-center' : 'hidden' } px-2 pt-2 pb-4 sm:flex sm:p-0 sm:justify-center`}>
                 
                 <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Category</NavLink>
                 {/* <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Brand</NavLink> */}
-                <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Home</NavLink>
+                <NavLink to="/home" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Home</NavLink>
                 
                 { (Object?.keys(userdata)?.length > 0) || (auth.user) ? (
                     <>
                         <Menu as="div" className="relative inline-block text-left">
                             <div>
-                                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-m bg-transparent px-2 py-2 text-sm text-red-500 ">
+                                <Menu.Button className="inline-flex w-full justify-center  rounded-m bg-transparent px-2 py-1  text-red-500 ">
                                     {Object?.keys(userdata)?.length > 0 ? userdata.displayName : auth.user?.name}
                                 <ChevronDownIcon className="-mr-1 h-5 w-5 text-red-400" aria-hidden="true" />
                                 </Menu.Button>
@@ -122,6 +124,8 @@ const Header = () => {
                             {/* <img  src = {cart} className=" w-50 h-auto"></img> */}
                             Cart
                         </NavLink>
+                        <NavLink onClick={logout} to="/" className=" mt-1 px-2 py-1 text-red-500  rounded hover:text-pink-400 sm:mt-0 " >Logout</NavLink>
+
                     </>
                 ) : (
                 <>
