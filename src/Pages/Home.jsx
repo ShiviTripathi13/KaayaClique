@@ -4,10 +4,12 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { toast } from "react-hot-toast";
 import { Prices } from "../Components/Prices";
+import { useNavigate } from "react-router-dom";
 
 
 const Home = () => {
     const [auth, setAuth] = useAuth();
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -164,7 +166,8 @@ const Home = () => {
                                     <div className=" text-medium font-serif font-semibold mb-2"> ${product.price}</div>
 
                                     <div className="">
-                                    <button className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white m-2 p-2 rounded-md">
+                                    <button onClick={() => navigate(`/product/${product.slug}`)}
+                                            className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white m-2 p-2 rounded-md">
                                         More Details
                                     </button>
                                     <button className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
