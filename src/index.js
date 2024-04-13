@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/authContext';
 import { SearchProvider } from './context/Search';
+import { CartProvider } from './context/CartContext';
 import 'antd/dist/reset.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
     <SearchProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </SearchProvider >
   </AuthProvider>
   
