@@ -95,7 +95,9 @@ const getSingleProductController = async (req, res) => {
 
 const productPhotoController = async (req, res) => {
     try {
-        const product = await productdb.findById(req.params.pid).select("photo");
+        const product = await productdb.findById( req.params.pid).select("photo");
+        // console.log("producr: ", product);
+        // res.json(product);
         if(product.photo.data){
             res.set("Content-Type", product.photo.contentType);
             return res.status(200).send(product.photo.data);
@@ -283,6 +285,32 @@ const searchProductController = async (req, res) => {
     }
 }
 
+// similar product controller
+const similarProductController = async (req, res) => {
+    try {
+        const {pid, cid} = req.params;
+        const products = await productdb.find({
+            _id: {$ne: pid},
+            category: cid
+        })
+        .limit(5)
+        .select("-photo")
+        .populate("category");
+        res.status(200).send({
+            success: true,
+            message: "Similar products",
+            products,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in fetching similar products",
+            error: error.message,
+        });
+    }
+}
+
 module.exports = {createProductController, 
                     getAllProductsController,
                     getSingleProductController,
@@ -292,4 +320,5 @@ module.exports = {createProductController,
                     productFiltersController,
                     productCountController,
                     productPerPageController,
-                    searchProductController};
+                    searchProductController,
+                    similarProductController};

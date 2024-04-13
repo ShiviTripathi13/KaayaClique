@@ -12,7 +12,8 @@ const { createProductController,
         productFiltersController,
         productCountController,
         productPerPageController,
-        searchProductController } = require('../controllers/productController.js');
+        searchProductController,
+        similarProductController } = require('../controllers/productController.js');
 
 // create product
 router.post('/create-product', requireLogin, requireAdmin, formidable(), createProductController);
@@ -43,4 +44,7 @@ router.get('/product-per-page/:page', productPerPageController);
 
 // search product
 router.get('/search/:keyword', searchProductController);
+
+// similar products
+router.get('/similar-products/:pid/:cid', similarProductController);
 module.exports = router;
