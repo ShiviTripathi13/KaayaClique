@@ -177,7 +177,7 @@ const Home = () => {
                             </div>
                         </div>
                     ))}
-                </div>
+                    </div>
                 <div className="m-2 flex justify-center">
                     {products && products.length < total && (
                         <button className="bg-gradient-to-b from-blue-500 to-blue-300 text-white p-2 m-2 rounded-md"
