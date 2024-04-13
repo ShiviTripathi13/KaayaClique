@@ -13,9 +13,9 @@ const CategoryWiseProduct = () => {
     const getProductsByCat = async () => {
         try {
             const { data } = await axios.get(`/api/v1/product/product-category/${(params.slug).slice(1)}`);
-            
             setProducts(data?.products);
             setCategory(data?.category);
+
         } catch (error) {
             console.error("Error fetching products: ", error);
         }
@@ -28,7 +28,7 @@ const CategoryWiseProduct = () => {
     , [params?.slug]);
     return (
         <div className="min-h-screen m-4 p-2">
-            <h1 className="font-serif text-2xl font-semibold text-pink-400">Category: {(category.name).charAt(0).toUpperCase() + (category.name).slice(1)}</h1>
+            <h1 className="font-serif text-2xl font-semibold text-pink-400">Category: {(category.name)}</h1>
             <h3 className="font-sans italic font-light text-pink-200">{products.length} results found</h3>
             
             <div className=" grid grid-cols-4 rounded-lg overflow-scroll">

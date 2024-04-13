@@ -5,11 +5,12 @@ import { Checkbox, Radio } from "antd";
 import { toast } from "react-hot-toast";
 import { Prices } from "../Components/Prices";
 import { useNavigate } from "react-router-dom";
-
+import { useCartContext } from "../context/CartContext";
 
 const Home = () => {
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
+    const [cart, setCart] = useCartContext();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -170,7 +171,11 @@ const Home = () => {
                                             className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white m-2 p-2 rounded-md">
                                         More Details
                                     </button>
-                                    <button className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
+                                    <button onClick={() => {
+                                                    setCart([...cart, product]);
+                                                    localStorage.setItem("cart", JSON.stringify([...cart, product]));
+                                                    }}
+                                            className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
                                         Add to Cart
                                     </button>
                                 </div>
