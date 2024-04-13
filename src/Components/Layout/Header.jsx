@@ -18,7 +18,6 @@ const Header = () => {
     const [auth, setAuth] = useAuth();
     const categories = useCatergory();
     const [cart] = useCartContext();
-    console.log("categories in header: ",categories);
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",

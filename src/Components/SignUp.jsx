@@ -12,6 +12,8 @@ const SignUp = () => {
    
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
@@ -20,6 +22,8 @@ const SignUp = () => {
             const res = await axios.post("/api/v1/auth/register", {
                 name,
                 email,
+                phone,
+                address,
                 password,
             });
             
@@ -67,6 +71,28 @@ const SignUp = () => {
                         required={true}
                         autoComplete={"email"}
                         className="items-start justify-start max-w-full mr-2 h-10 px-4 ml-2 mt-2 text-base bg-blue-100 placeholder-gray-400 italic font-serif border rounded-lg focus:shadow-outline"/>
+
+                    <label htmlFor="phone" className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-2">Contact No.</label>
+                    <input id={"phone"}
+                        type={"phone"}
+                        placeholder={"phone"}
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required={true}
+                        autoComplete={"phone"}
+                        className="items-start justify-start max-w-full mr-2 h-10 px-4 ml-2 mt-2 text-base bg-blue-100 placeholder-gray-400 italic font-serif border rounded-lg focus:shadow-outline"/>
+
+                    <label htmlFor="address" className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-2">Address</label>
+                    <input id={"address"}
+                        type={"address"}
+                        placeholder={"Address"}
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        required={true}
+                        autoComplete={"address"}
+                        className="items-start justify-start max-w-full mr-2 h-10 px-4 ml-2 mt-2 text-base bg-blue-100 placeholder-gray-400 italic font-serif border rounded-lg focus:shadow-outline"/>
+
+
 
                     <label htmlFor="password" className="items-start justify-start text-gray-500 font-serif font-semibold text-normal ml-3 mt-6">Password</label>
                     <input id={"password"}

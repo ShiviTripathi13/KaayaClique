@@ -12,6 +12,14 @@ const authSchema = new Schema({
         unique: true,
         required: true
     },
+    phone: {
+        type: Number,
+        required: true
+    },
+    address: {
+        type: {},
+        required: true
+    },
     password: {
         type: String,
         required: true
