@@ -1,4 +1,5 @@
 const productdb = require('../model/productSchema.js');
+const categorydb = require('../model/categorySchema.js');
 const slugify = require('slugify');
 const fs = require('fs');
 
@@ -311,6 +312,32 @@ const similarProductController = async (req, res) => {
     }
 }
 
+// category wise product controller
+const categoryWiseProductController = async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        console.log("slug: ",slug);
+        const category = await categorydb.findOne({slug});
+        console.log("category in controller: ",category);
+        const products = await productdb.find({category})
+                                        .populate("category")
+                                        .select("-photo");
+        res.status(200).send({
+            success: true,
+            message: "Category wise products",
+            category,
+            products,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in fetching category wise products",
+            error: error.message,
+        });
+    }
+}
+
 module.exports = {createProductController, 
                     getAllProductsController,
                     getSingleProductController,
@@ -321,4 +348,5 @@ module.exports = {createProductController,
                     productCountController,
                     productPerPageController,
                     searchProductController,
-                    similarProductController};
+                    similarProductController,
+                    categoryWiseProductController};

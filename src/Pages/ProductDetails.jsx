@@ -35,7 +35,7 @@ const ProductDetails = () => {
     <div className="flex flex-col w-full  overflow-scroll scroll-m-1  m-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif min-h-screen  ">
         <div className="flex flex-col w-full  overflow-scroll scroll-m-1  m-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif min-h-screen  ">
                 
-            <div><h1 className="text-2xl font-serif font-semibold m-4 ">{product.name} | {product.category?.name}</h1></div>
+            <div><h1 className="text-2xl font-serif font-semibold m-4 ">{product.name} | {(product.category?.name).charAt(0).toUpperCase() + (product.category?.name).slice(1)}</h1></div>
                 
             <div className=" flex rounded-lg m-2 overflow-scroll">
                     

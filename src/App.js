@@ -24,6 +24,8 @@ import Landing from './Pages/Landing';
 import Cart from './Pages/User/Cart';
 import SearchProduct from './Pages/SearchProduct';
 import ProductDetails from './Pages/ProductDetails';
+import Categories from './Pages/Categories';
+import CategoryWiseProduct from './Pages/CategoryWiseProduct';
 function App() {
   return (
     <Router>
@@ -31,6 +33,8 @@ function App() {
     <Routes>
     <Route path="/" element={<Landing/>} />
       <Route path="/home" element={<Home/>} />
+      <Route path="/categories" element={<Categories />} />
+      <Route path="/category/:slug" element={<CategoryWiseProduct />} />
       <Route path="/product/:slug" element={<ProductDetails/>} />
       <Route path="/search" element={<SearchProduct/>} />
       <Route path="/about" element={<About/>} />

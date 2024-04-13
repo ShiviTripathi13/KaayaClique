@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, Link} from "react-router-dom";
 import logo from "../../assets/icons/Logo KaayaClique.png";
 import menuicon from "../../assets/icons/icon-menu.png";
 import axios from "axios";
@@ -9,11 +9,13 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import SearchInput from "../Forms/SearchInput";
-
+import useCatergory from "../../hooks/useCategory";
 const Header = () => {
     const [userdata, setUserdata] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [auth, setAuth] = useAuth();
+    const categories = useCatergory();
+    console.log("categories in header: ",categories);
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -76,8 +78,53 @@ const Header = () => {
                 <SearchInput />
             </div>
             <nav className= { `${isOpen ? 'grid justify-center' : 'hidden' } px-2 pt-2 pb-4 sm:flex sm:p-0 sm:justify-center`}>
+              
+                <Menu as="div" className="relative inline-block text-left">
+                    <div>
+                        <Menu.Button className="inline-flex w-full justify-center  rounded-m bg-transparent px-2 py-1  text-red-500 ">
+                            Categories
+                        <ChevronDownIcon className="-mr-1 h-5 w-5 text-red-400" aria-hidden="true" />
+                        </Menu.Button>
+                    </div>
+
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                    >
+                        <Menu.Items className="absolute flex flex-col justify-center right-0 z-10 mt-2 w-auto px-2 origin-top-right rounded-md bg-pink-50 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div className="py-1 ">
+                                <Menu.Item className="bg-pink-200">
+                                {({ active }) => (
+                                    <NavLink to="/categories"
+                                    className="mt-1  px-2 py-1 flex text-center font-normal justify-start text-pink-400  rounded hover:text-pink-400 sm:mt-0 ">All Categories</NavLink>
+                                )}
+                                </Menu.Item>
+                                
+                                {categories.map((category) => (
+                                    <Menu.Item key={category._id}>
+                                    
+                                    {({ active }) => (
+                                        <div className="flex text-center font-normal justify-center">
+                                        <NavLink to={`/category/:${category.slug}`}
+                                                className="mt-1  px-2 py-1  text-pink-400 rounded hover:text-pink-400 sm:mt-0 ">
+                                            {((category.name).charAt(0).toUpperCase() + (category.name).slice(1))}
+                                        </NavLink>
+                                        </div>
+                                    )}
+                                    
+                                    </Menu.Item>
+                                ))}
+                            </div>
+                        </Menu.Items>
+                    </Transition>
+                </Menu>
+
                 
-                <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Category</NavLink>
                 {/* <NavLink to="/" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Brand</NavLink> */}
                 <NavLink to="/home" className="  px-2 py-1 text-red-500 font-semibold rounded hover:bg-pink-50">Home</NavLink>
                 
