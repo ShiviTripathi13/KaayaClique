@@ -106,7 +106,9 @@ const Cart = () => {
                     <h1 className="text-md font-serif ">Total Items: {cart.length}</h1>
                     <h1 className="text-md font-serif ">Total Price: ${getTotalPrice()}</h1>
                 </div>
+                
                 <div className="flex justify-center items-end mt-20 font-medium">
+                    
                     <button className=" max-w-fit max-h-fit  m-2 bg-gradient-to-br from-amber-300 to-amber-100 text-gray-600 p-2 rounded-md"
                         onClick={() => navigate("/home")}>
                         Continue Shopping

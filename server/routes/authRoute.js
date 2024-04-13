@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { registerController, loginController, testController } = require('../controllers/authController.js');
+const { registerController, loginController, testController, updateProfileController } = require('../controllers/authController.js');
 const { requireLogin, requireAdmin} = require('../middlewares/authMiddleware.js')
 
 // signup route
@@ -22,4 +22,7 @@ router.get('/adminauth', requireLogin, requireAdmin, (req, res) => {
 
 // test route
 router.get('/test', requireLogin, requireAdmin, testController);
+
+// update user
+router.put('/profile', requireLogin, updateProfileController);
 module.exports = router;

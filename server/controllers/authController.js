@@ -4,10 +4,11 @@ const {hashPassword, comparePassword} = require('../helpers/authHelper');
 const JWT = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || require('../config/keys.js').JWT_SECRET;
 
+// register controller
 const registerController = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { name, email, password, phone , address} = req.body;
+        if (!name || !email || !password || !phone || !address) {
             return res.send({ message: "Please fill all the fields" });
         }
         // check if user already exists
@@ -24,6 +25,8 @@ const registerController = async (req, res) => {
         const newUser = await new authdb({
             name,
             email,
+            phone,
+            address,
             password: hashedPassword,
         });
         await newUser.save();
@@ -43,6 +46,7 @@ const registerController = async (req, res) => {
     }
 }
 
+// login controller
 const loginController = async (req, res) => {
     try{
         const {email, password} = req.body;
@@ -73,6 +77,8 @@ const loginController = async (req, res) => {
             user: {
                 name: user.name,
                 email: user.email,
+                phone: user.phone,
+                address: user.address,
                 role: user.role,
             },
             token
@@ -88,9 +94,48 @@ const loginController = async (req, res) => {
     }
 }
 
+// test controller
 const testController = (req, res) => {
     res.send("protected router");
 }
 
-module.exports = {registerController, loginController, testController}
+// update profile controller
+const updateProfileController = async (req, res) => {
+    try {
+        const { name, email, phone, address, password } = req.body;
+        const user = await authdb.findById(req.user._id);
+        // if (name) user.name = name;
+        // if (email) user.email = email;
+        if (password && password.length < 6) {
+            return res.json({ error: "Passsword is required and 6 character long" });
+          }
+        const hashedPassword = password ? await hashPassword(password) : undefined;
+        const updatedUser = await authdb.findByIdAndUpdate(req.user._id,{
+            name: name || user.name,
+            phone: phone || user.phone,
+            address: address || user.address,
+            password: hashedPassword || user.password,
+        }, {new: true});  
+        updatedUser.save();
+        res.status(200).send({
+            success: true,
+            message: "Profile updated successfully",
+            updatedUser: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in updating profile",
+            error
+        });
+    }
+}
+
+module.exports = {registerController, loginController, testController, updateProfileController}
     
