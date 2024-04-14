@@ -34,11 +34,11 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
-    "start:frontend": "react-scripts start",
-    "start:backend": "nodemon server/server.js",
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "client": "react-scripts start",
+    "server": "nodemon server/server.js",
+    "start": "concurrently \"npm run client\" \"npm run server\"",
     "build": "react-scripts build",
-    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
