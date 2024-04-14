@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { registerController, loginController, testController, updateProfileController } = require('../controllers/authController.js');
+const { registerController, 
+        loginController, 
+        testController, 
+        updateProfileController, 
+        getOrdersController,
+        getAllOrdersController,
+        orderStatusController } = require('../controllers/authController.js');
 const { requireLogin, requireAdmin} = require('../middlewares/authMiddleware.js')
 
 // signup route
@@ -25,4 +31,13 @@ router.get('/test', requireLogin, requireAdmin, testController);
 
 // update user
 router.put('/profile', requireLogin, updateProfileController);
+
+// orders
+router.get('/orders', requireLogin, getOrdersController);
+
+// all orders- admin
+router.get('/all-orders', requireLogin, requireAdmin, getAllOrdersController);
+
+// order status update
+router.put('/order-status/:orderId', requireLogin, requireAdmin, orderStatusController);
 module.exports = router;

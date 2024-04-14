@@ -17,7 +17,8 @@ const AdminMenu = () => {
                         <li className="p-2"><NavLink to="/dashboard/admin/create-category"  className=" p-2  hover:bg-amber-100 hover:rounded-md">Create Category</NavLink></li>
                         <li className="p-2"><NavLink to="/dashboard/admin/create-products" className=" p-2   hover:bg-amber-100 hover:rounded-md">Create Products</NavLink></li>
                         <li className="p-2"><NavLink to="/dashboard/admin/products" className=" p-2   hover:bg-amber-100 hover:rounded-md">Display Products</NavLink></li>
-                        <li className="p-2 "><NavLink to="/dashboard/admin/display-users" className="  p-2   hover:bg-amber-100 hover:rounded-md">Display Users</NavLink></li>
+                        {/* <li className="p-2 "><NavLink to="/dashboard/admin/display-users" className="  p-2   hover:bg-amber-100 hover:rounded-md">Display Users</NavLink></li> */}
+                        <li className="p-2 "><NavLink to="/dashboard/admin/orders" className="  p-2   hover:bg-amber-100 hover:rounded-md">Display Orders</NavLink></li>
 
 
                     </ul>

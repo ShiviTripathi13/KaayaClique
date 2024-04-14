@@ -26,7 +26,7 @@ const SearchInput = () => {
                     <input 
                         type="search" 
                         id="default-search" 
-                        className="block w-full p-4  ps-4 text-sm text-gray-900 border border-pink-300 rounded-lg bg-gray-50     " 
+                        className="block w-full p-4  ps-4 text-sm text-gray-900 border border-pink-30 rounded-lg bg-pink-50     " 
                         placeholder="Search Products"
                         value={values.keyword}
                         onChange={(e) => setValues({...values, keyword: e.target.value})} 
@@ -38,7 +38,7 @@ const SearchInput = () => {
                             </svg>
                         </button>
                     </div> */}
-                    <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-pink-400 hover:bg-pink-300 focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm ml-2 p-2 ">Search</button>
+                    <button type="submit" className="text-white absolute  end-2.5 bottom-2.5 bg-pink-400 hover:bg-pink-300 focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm ml-2 p-2  ">Search</button>
                 </div>
             </form>
 

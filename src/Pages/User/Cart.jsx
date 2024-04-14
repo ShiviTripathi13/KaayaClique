@@ -3,8 +3,7 @@ import { useCartContext } from "../../context/CartContext";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import DropIn from "braintree-web-drop-in-react";
-import toast from "react-hot-toast";
+
 
 
 
@@ -103,7 +102,7 @@ const Cart = () => {
                             <h1 className="text-md font-serif font-semibold">{item.name}</h1>
                             <h1 className="text-md font-serif font-normal">Price: Rs. {item.price}</h1>
                             <div className="flex flex-row">
-                            <div><h1 className="text-md mt-2 mr-2 font-serif font-normal">Quantity: </h1></div>
+                            <div><h1 className="text-md mt-2 mr-2 font-serif font-normal">Quantity: 1 </h1></div>
                             <div><button className=" max-w-fit font-serif ml-2 bg-gradient-to-br from-red-600 to-red-200   text-gray-50  p-2 rounded-md"    
                                     onClick={() => removeCartItem(item._id)}>
                                 Delete   
@@ -122,24 +121,31 @@ const Cart = () => {
                     <h1 className="text-md font-serif font-semibold">Cart Summary</h1>
                 </div>
                 <hr className="bg-gray-300 mb-6 h-0.5 "></hr>
-                <div>
-                    <h1 className="text-md font-serif ">Total Items: {cart.length}</h1>
-                    <h1 className="text-md font-serif ">Total Price:  {getTotalPrice()}</h1>
+                <div className="flex justify-between px-2">
+                    <div><h1 className="text-md font-serif ">Total Items:</h1></div>
+                    <div><h1 className="text-md font-serif "> {cart.length}</h1></div>
+                </div>
+                <div className="flex justify-between px-2">
+                    <div><h1 className="text-md font-serif ">Total Price: </h1></div>
+                    <div><h1 className="text-md font-serif ">{getTotalPrice()}</h1></div>
+
                 </div>
                 <div>
                 {auth?.user?.address && (
                 <>
-                    <div className="">
-                    <h4 className="text-sm font-serif ">Current Address: {auth?.user?.address}
-                    
+                    <div className="flex justify-between">
+                    <div><h4 className="text-md font-serif ">Current Address:</h4></div>
+                    <div><h4 className="text-md font-serif ">{auth?.user?.address}</h4></div>
+                    </div>
+                    <div className="flex justify-end">
                     <button
                         className="btn btn-outline-warning text-blue-400 m-2 underline underline-offset-2  text-sm rounded-md"
                         onClick={() => navigate("/dashboard/user/profile")}
                     >
                         Update Address?
                     </button>
-                    </h4>
                     </div>
+                    
                 </>
                 ) }
                 {auth?.token || (Object?.keys(userdata)?.length > 0 ) ? (
@@ -149,7 +155,7 @@ const Cart = () => {
                         <NavLink className=" max-w-fit mt-2  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md"
                                    target="_self"
                                    to="/paymentpage">
-                            <button className=" max-w-fit m-2  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md">
+                            <button className=" max-w-fit mt-12  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md">
                                 Proceed to Payment
                             </button>
                         </NavLink>
@@ -170,7 +176,7 @@ const Cart = () => {
                   </button>
                 )}
                 
-                <div className="flex justify-center items-end mt-20 font-medium">
+                <div className="flex justify-center items-end mt-2 font-medium">
                     
                     <button className=" max-w-fit max-h-fit  m-2 bg-gradient-to-br from-amber-300 to-amber-100 text-gray-600 p-2 rounded-md"
                         onClick={() => navigate("/home")}>

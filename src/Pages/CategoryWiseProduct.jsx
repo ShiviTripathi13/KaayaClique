@@ -2,12 +2,13 @@ import React, {useEffect, useState} from "react";
 import useCategory from "../hooks/useCategory";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCartContext } from "../context/CartContext";
 
 const CategoryWiseProduct = () => {
     const navigate = useNavigate();
     const categories = useCategory();
     const params = useParams();
-   
+    const [cart, setCart] = useCartContext();
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
     const getProductsByCat = async () => {
@@ -27,9 +28,9 @@ const CategoryWiseProduct = () => {
     }
     , [params?.slug]);
     return (
-        <div className="min-h-screen m-4 p-2">
-            <h1 className="font-serif text-2xl font-semibold text-pink-400">Category: {(category.name)}</h1>
-            <h3 className="font-sans italic font-light text-pink-200">{products.length} results found</h3>
+        <div className="flex flex-col w-full overflow-scroll scroll-m-1  m-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif min-h-screen  ">
+        <h1 className="font-serif text-2xl m-2 px-2 font-semibold text-pink-400">Category: {(category.name)}</h1>
+            <h3 className="font-sans italic m-2 px-2 font-light text-pink-200">{products.length} results found</h3>
             
             <div className=" grid grid-cols-4 rounded-lg overflow-scroll">
                     {products?.map((product) => (
@@ -51,9 +52,13 @@ const CategoryWiseProduct = () => {
                                             className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white m-2 p-2 rounded-md">
                                         More Details
                                     </button>
-                                    <button className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
-                                        Add to Cart
-                                    </button>
+                                    <button  onClick={() => {
+                                        setCart([...cart, product]);
+                                        localStorage.setItem("cart", JSON.stringify([...cart, product]));
+                                        }}
+                                className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
+                            Add to Cart
+                        </button>
                                 </div>
                             </div>
                         </div>
