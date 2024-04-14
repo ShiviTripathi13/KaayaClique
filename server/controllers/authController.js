@@ -1,5 +1,6 @@
 require('dotenv').config();
 const authdb = require('../model/authSchema.js');
+const orderdb = require('../model/orderSchema.js');
 const {hashPassword, comparePassword} = require('../helpers/authHelper');
 const JWT = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || require('../config/keys.js').JWT_SECRET;
@@ -137,5 +138,67 @@ const updateProfileController = async (req, res) => {
     }
 }
 
-module.exports = {registerController, loginController, testController, updateProfileController}
+// get orders controller
+const getOrdersController = async (req, res) => {
+    try {
+        console.log("req.user: ", req.user)
+        const orders = await orderdb.find({orderedBy: req.user._id})
+                                    .populate("products", "-photo ")
+                                    .populate("orderedBy", "name");
+        res.json(orders);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in fetching orders",
+            error
+        });
+    }
+}
+
+// get all orders controller
+const getAllOrdersController = async (req, res) => {
+    console.log("all orders req.user: ", req.user)
+    try {
+        const orders = await orderdb.find({})
+                                    .populate("products", "-photo")
+                                    .populate("orderedBy", "name")
+                                    .sort("-createdAt");
+        res.json(orders);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in fetching orders",
+            error
+        });
+    }
+}
+// order status controller
+const orderStatusController = async (req, res) => {
+    try {
+        const {orderId} = req.params;
+        const {orderStatus } = req.body;
+        const orders = await orderdb.findByIdAndUpdate
+        (orderId, {orderStatus}, {new: true});
+        res.json(orders);    
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong in updating order status",
+            error
+        });
+    }
+}
+module.exports = {registerController, 
+                    loginController, 
+                    testController, 
+                    updateProfileController,
+                    getOrdersController,
+                    getAllOrdersController,
+                    orderStatusController};
     

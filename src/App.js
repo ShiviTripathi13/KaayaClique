@@ -27,6 +27,7 @@ import ProductDetails from './Pages/ProductDetails';
 import Categories from './Pages/Categories';
 import CategoryWiseProduct from './Pages/CategoryWiseProduct';
 import Payment from './Pages/Payment';
+import AdminOrders from './Pages/Admin/AdminOrders';
 function App() {
   return (
     <Router>
@@ -52,7 +53,7 @@ function App() {
         <Route path="admin/create-category" element={<CreateCategory />}/>
         <Route path="admin/create-products" element={<CreateProduct />}/>
         <Route path="admin/product/:slug" element={<UpdateProduct />}/>
-
+        <Route path="admin/orders" element={<AdminOrders />}/>
         <Route path="admin/products" element={<DisplayProducts />}/>
         <Route path="admin/display-users" element={<DisplayUsers />}/>
 

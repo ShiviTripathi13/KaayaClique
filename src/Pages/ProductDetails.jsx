@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCartContext } from "../context/CartContext";
 import axios from "axios";
 
 const ProductDetails = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [product, setProduct] = useState({});
+    const [cart, setCart] = useCartContext();
     const [similarProducts, setSimilarProducts] = useState([]);
     const getProducts = async () => {
         try{
@@ -58,7 +60,11 @@ const ProductDetails = () => {
                                 className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white m-2 p-2 rounded-md">
                             More Details
                         </button> */}
-                        <button className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
+                        <button  onClick={() => {
+                                        setCart([...cart, product]);
+                                        localStorage.setItem("cart", JSON.stringify([...cart, product]));
+                                        }}
+                                className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
                             Add to Cart
                         </button>
                     </div>
@@ -91,7 +97,12 @@ const ProductDetails = () => {
                                             className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white m-2 p-2 rounded-md">
                                         More Details
                                     </button>
-                                    <button className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
+                                    <button onClick={() => {
+                                                    setCart([...cart, product]);
+                                                    localStorage.setItem("cart", JSON.stringify([...cart, product]));
+                                                    }}
+                                            className="  bg-gradient-to-b from-amber-500 to-amber-300 text-white m-2 p-2 rounded-md">
+                                                                                   
                                         Add to Cart
                                     </button>
                                 </div> 
