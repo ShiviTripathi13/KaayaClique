@@ -22,7 +22,7 @@ const SearchProduct = () => {
                         </div>
                         <div className="px-6 py-4   w-full ">
                             <div className="font-bold text-xl mb-2">{product.name}</div>
-                            <div className=" text-medium font-sans mb-2">Price: {product.price}</div>
+                            <div className=" text-medium font-sans mb-2">Price: Rs. {product.price}</div>
                             <div className="">
                                 <button className="  bg-gradient-to-b from-blue-500 to-blue-300 text-white p-2 m-2 rounded-md">
                                     More Details

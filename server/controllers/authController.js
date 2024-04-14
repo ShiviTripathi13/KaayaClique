@@ -116,7 +116,7 @@ const updateProfileController = async (req, res) => {
             address: address || user.address,
             password: hashedPassword || user.password,
         }, {new: true});  
-        updatedUser.save();
+        await updatedUser.save();
         res.status(200).send({
             success: true,
             message: "Profile updated successfully",

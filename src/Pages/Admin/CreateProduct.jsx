@@ -54,45 +54,6 @@ const CreateProduct = () => {
         }
     }
 
-    // update category
-    // const updateProduct = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const { data } = await axios.put(`/api/v1/product/update-product/${selected._id}`, { name: updatedName });
-    //         if(data.success){
-    //             toast.success(`${updatedName} updated successfully`);
-    //             setSelected(null);
-    //             setUpdatedName("");
-    //             setVisible(false);
-    //             getProducts();
-                
-    //         } else{
-    //             toast.error(data.message);
-    //         }
-    //     } catch (err) {
-    //         console.error(err.message);
-    //         toast.error("Error to update product");
-    //     }
-    // }
-
-    // delete category
-    // const deleteProduct = async (pid) => {
-       
-    //     try {
-    //         const { data } = await axios.delete(`/api/v1/product/delete-product/${pid}`);
-    //         if(data.success){
-    //             toast.success(`${proname} deleted successfully`);
-    //             getProducts();
-                
-    //         } else{
-    //             toast.error(data.message);
-    //         }
-    //     } catch (err) {
-    //         console.error(err.message);
-    //         toast.error("Error to delete category");
-    //     }
-    // }
-
     useEffect(() => {
         getCategories();
     }, []);

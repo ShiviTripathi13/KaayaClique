@@ -8,30 +8,13 @@ import UserMenu from '../Components/Layout/UserMenu';
 
 const Dashboard = () => {
     const [auth] = useAuth();
-   
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
     const [userdata, setUserdata] = useState({});
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Access-Control-Allow-Credentials": true,
     }
-    // get user data
-    useEffect(() => {
-        if(auth.user){
-            const {name, email, phone, address} = auth?.user;
-            setName(name);
-            setEmail(email);
-            setPhone(phone);
-            setAddress(address);
-        } else {
-        setName(userdata.displayName);
-        setEmail(userdata.email);
-        }
-    }, [auth?.user]);
+    
     const getGoogleUserData = async () => {
         try {
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers }); 
@@ -55,10 +38,10 @@ const Dashboard = () => {
             <div className="flex flex-col sm:basis-2/3 px-2 card sm:w-auto w-64 border rounded-md border-pink-300 h-80 bg-gradient-to-t from-pink-100 via-amber-50 to-gray-100 ml-2 ">
                 <h1 className=" text-2xl font-bold  mt-2">User Details:</h1>
                 <hr className="bg-zinc-400 mb-2"></hr>
-                <h3 className=" text-zinc-500 py-2 ">User Name: {Object?.keys(userdata)?.length > 0 ? userdata.displayName : name}</h3>
-                <h3 className=" text-zinc-500 py-2 ">User Email: {Object?.keys(userdata)?.length > 0 ? userdata.email : email}</h3>
-                <h3 className=" text-zinc-500 py-2 ">Contact No.: {Object?.keys(userdata)?.length > 0 ? " " : phone}</h3>
-                <h3 className=" text-zinc-500 py-2 ">Address: {Object?.keys(userdata)?.length > 0 ? " " : address}</h3>
+                <h3 className=" text-zinc-500 py-2 ">User Name: {Object?.keys(userdata)?.length > 0 ? userdata.displayName : auth?.user?.name}</h3>
+                <h3 className=" text-zinc-500 py-2 ">User Email: {Object?.keys(userdata)?.length > 0 ? userdata.email : auth?.user?.email}</h3>
+                <h3 className=" text-zinc-500 py-2 ">Contact No.: {Object?.keys(userdata)?.length > 0 ? " " : auth?.user?.phone}</h3>
+                <h3 className=" text-zinc-500 py-2 ">Address: {Object?.keys(userdata)?.length > 0 ? " " : auth?.user?.address}</h3>
 
                 
             </div>

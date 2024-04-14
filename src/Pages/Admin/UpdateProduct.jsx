@@ -131,28 +131,7 @@ const UpdateProduct = () => {
                         ))}
                         
                     </Select>
-                   {/* <div>
-                        <label htmlFor="product-image" className=" font-serif text-gray-600 ">
-                            {photo ? photo.name : "Upload Product Image"}
-                            <input type="file" name="photo" 
-                                    accept="image/*"
-                                    onChange={(e) => setPhoto(e.target.files[0])}
-                                    className="btn m-2 p-2 sm:w-full border border-pink-300 rounded-md text-gray-500 font-normal"
-                                    
-                            />
-                        </label>
-                   </div>
-                   <div>
-                        {photo ? (
-                            <div>
-                            <img src={URL.createObjectURL(photo)} alt={photo.name} height={"50px"} width={"50px"} className=" m-2" />
-                            </div>
-                        ):(
-                            <div>
-                            <img src={`/api/v1/product/product-photo/${id}`} alt={"product_photo"} height={"50px"} width={"50px"} className=" m-2" />
-                            </div>
-                        )}   
-                   </div> */}
+                   
                    <div>
                         <label htmlFor="product-name" className=" font-serif text-gray-600 ">
                             Product Name

@@ -44,7 +44,7 @@ const CategoryWiseProduct = () => {
                                 </div>
                                 <div className="px-6 py-4   w-full ">
                                     <div className="font-serif mb-2">{product.name.substring(0,20)}</div>
-                                    <div className=" text-medium font-serif font-semibold mb-2"> ${product.price}</div>
+                                    <div className=" text-medium font-serif font-semibold mb-2"> Rs. {product.price}</div>
 
                                     <div className="">
                                     <button onClick={() => navigate(`/product/${product.slug}`)}
