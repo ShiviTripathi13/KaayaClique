@@ -28,7 +28,7 @@ const Profile = () => {
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers }); 
             setUserdata(response.data.user);
         } catch (err) {
-            console.log("error", err);
+            //console.log("error", err);
         }
     }
     useEffect(() => {
@@ -79,7 +79,7 @@ const Profile = () => {
             navigate("/dashboard/user");
         }
         } catch (error) {
-        console.log(error);
+        //console.log(error);
         toast.error("Something went wrong");
         }
     };

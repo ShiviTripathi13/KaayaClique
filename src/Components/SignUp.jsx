@@ -27,7 +27,7 @@ const SignUp = () => {
                 password,
             });
             
-            console.log(res);
+            //console.log(res);
             if(res && res.data.success == true){
                 toast.success(res.data && res.data.message);
                 navigate("/login");
@@ -36,7 +36,7 @@ const SignUp = () => {
                 toast.error(res.data.message);
             }
        } catch (error) {
-           console.log("error",error)
+           //console.log("error",error)
            toast.error("User registration failed")
          }
     }

@@ -38,7 +38,7 @@ const registerController = async (req, res) => {
             newUser,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in registration",
@@ -86,7 +86,7 @@ const loginController = async (req, res) => {
         });
     }
     catch(err){
-        console.log(err);
+        //console.log(err);
         res.status(500).send({
             success: false,
             message: "Something went wrong in login",
@@ -129,7 +129,7 @@ const updateProfileController = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in updating profile",
@@ -141,14 +141,14 @@ const updateProfileController = async (req, res) => {
 // get orders controller
 const getOrdersController = async (req, res) => {
     try {
-        console.log("req.user: ", req.user)
+        //console.log("req.user: ", req.user)
         const orders = await orderdb.find({orderedBy: req.user._id})
                                     .populate("products", "-photo ")
                                     .populate("orderedBy", "name");
         res.json(orders);
         
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching orders",
@@ -159,7 +159,7 @@ const getOrdersController = async (req, res) => {
 
 // get all orders controller
 const getAllOrdersController = async (req, res) => {
-    console.log("all orders req.user: ", req.user)
+    //console.log("all orders req.user: ", req.user)
     try {
         const orders = await orderdb.find({})
                                     .populate("products", "-photo")
@@ -168,7 +168,7 @@ const getAllOrdersController = async (req, res) => {
         res.json(orders);
         
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching orders",
@@ -186,7 +186,7 @@ const orderStatusController = async (req, res) => {
         res.json(orders);    
     }
     catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in updating order status",

@@ -29,7 +29,7 @@ const Header = () => {
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers }); 
             setUserdata(response.data.user);
         } catch (err) {
-            console.log("error", err);
+            //console.log("error", err);
         }
     }
 

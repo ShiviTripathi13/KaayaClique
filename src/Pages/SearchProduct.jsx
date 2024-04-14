@@ -3,7 +3,7 @@ import { useSearch } from "../context/Search";
 
 const SearchProduct = () => {
     const [values] = useSearch();
-    // console.log("value: ",value.products);
+    // //console.log("value: ",value.products);
     return (
         <div className="flex flex-col w-full  overflow-scroll scroll-m-1  m-2 p-2 sm:p-0 border border-pink-300 rounded-md bg-gradient-to-t from-pink-200 via-amber-100 to-gray-200 font-serif max-h-screen  ">
         <div><h1 className="text-2xl font-serif font-semibold m-4 ">Search Results</h1></div>

@@ -11,7 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
 const userdb = require('./model/userSchema.js');
-
+const path = require('path');
 
 // keys
 const GOOGLE_CLIENT_ID = require('./config/keys.js').GOOGLE_CLIENT_ID;
@@ -35,6 +35,7 @@ app.use(cors(
     }
 ));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '/build')));
 
 
 //auth routes
@@ -60,7 +61,7 @@ passport.use(new OAuth2Strategy({
     passReqToCallback: true
 },
     async( request, accessToken, refreshToken, profile, done) => {
-        // console.log("profile", profile);
+        // //console.log("profile", profile);
         try{
             let user = await userdb.findOne({ googleId: profile.id });
             if(!user){
@@ -101,7 +102,7 @@ app.get("/auth/google/callback", passport.authenticate("google",{
 
 // google login success/failure route
 app.get("/login/sucess",async(req,res)=>{
-    // console.log("reqqqqq", req);
+    // //console.log("reqqqqq", req);
     if(req.user){
         res.status(200).send({ok: true, success: true, message:"user Login",user:req.user})
        
@@ -123,9 +124,14 @@ app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/category",categoryRoutes);
 app.use("/api/v1/product",productRoutes);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build', 'index.html'));
+}
+);
+
 // connection to the port/server
 app.listen(port, () => {
-    console.log(`Server is running at port ${port}`);
+    //console.log(`Server is running at port ${port}`);
 });
 
 module.exports = app;
