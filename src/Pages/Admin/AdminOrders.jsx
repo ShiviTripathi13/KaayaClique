@@ -24,7 +24,7 @@ const AdminOrders = () => {
             const {data} = await axios.get("/api/v1/auth/all-orders");
             setOrders(data);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     const handleChange = async (orderId, value) => {
@@ -33,7 +33,7 @@ const AdminOrders = () => {
             toast.success(data?.message);
             getOrders();
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     useEffect(() => {

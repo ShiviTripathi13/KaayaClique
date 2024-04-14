@@ -33,7 +33,7 @@ const categoryController = async (req, res) => {
             newCategory,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in creating category",
@@ -53,7 +53,7 @@ const updateCategoryController = async (req, res) => {
            category,
        });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in updating category",
@@ -71,7 +71,7 @@ const getAllCategoryController = async (req, res) => {
             categories,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in getting categories",
@@ -89,7 +89,7 @@ const getSingleCategoryController = async (req, res) => {
             category,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in getting single category",
@@ -108,7 +108,7 @@ const deleteCategoryController = async (req, res) => {
             
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in deleting category",

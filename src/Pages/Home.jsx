@@ -55,14 +55,14 @@ const Home = () => {
             setProducts(data.products);
         } catch (error) {
             setLoading(false);
-            console.log(error);
+            //console.log(error);
         }
     }
     // get all categories
     const getCategories = async () => {
         try {
             const { data } = await axios.get('/api/v1/category/all-category');
-            // console.log("data in get all categories: ", data);
+            // //console.log("data in get all categories: ", data);
             data?.success && setCategories(data?.categories);
         } catch (err) {
             console.error(err.message);

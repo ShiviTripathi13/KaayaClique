@@ -22,7 +22,7 @@ const AdminRoute = () => {
                     setOk(false);
                 }
             } catch (err) {
-                console.log("error", err);
+                //console.log("error", err);
             }
         }
         if(auth?.token ){
