@@ -1,5 +1,4 @@
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -13,12 +12,14 @@ const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
 const userdb = require('./model/userSchema.js');
 
+
 // keys
 const GOOGLE_CLIENT_ID = require('./config/keys.js').GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = require('./config/keys.js').GOOGLE_CLIENT_SECRET;
 const EXPRESS_SESSION_SECRET = require('./config/keys.js').EXPRESS_SESSION_SECRET;
 const clientid = process.env.GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET || GOOGLE_CLIENT_SECRET;
+
 
 // importing routes
 const authRoutes = require('./routes/authRoute.js');

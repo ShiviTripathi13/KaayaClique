@@ -48,7 +48,7 @@ const ProductDetails = () => {
                     </div>
                     <div className="px-6 py-4   w-full ">
                         <div className="font-serif mb-2">{product.name} | {product.category?.name} </div>
-                        <div className=" text-medium font-serif  mb-2">Price: ${product.price} </div>
+                        <div className=" text-medium font-serif  mb-2">Price: Rs. {product.price} </div>
                         <div className=" text-medium font-serif  mb-2"> {product.category?.name}</div>
                         <div className=" text-medium font-serif  mb-2"> {product.description}</div>
                         <div className=" text-medium font-serif  mb-2"> Quantity: {product.quantity}</div>
@@ -84,7 +84,7 @@ const ProductDetails = () => {
                             <div className="px-6 py-4   w-full ">
                                 <div className="font-serif mb-2">{product.name.substring(0,20)}</div>
                                 <div className="font-serif mb-2">{product.name.substring(0,20)}...</div>
-                                <div className=" text-medium font-serif font-semibold mb-2"> ${product.price}</div>
+                                <div className=" text-medium font-serif font-semibold mb-2"> Rs. {product.price}</div>
                                 
                                 <div className="">
                                     <button onClick={() => navigate(`/product/${product.slug}`)}

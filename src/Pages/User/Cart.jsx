@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { useCartContext } from "../../context/CartContext";
 import { useAuth } from "../../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import DropIn from "braintree-web-drop-in-react";
+import toast from "react-hot-toast";
+
 
 
 const Cart = () => {
@@ -10,7 +13,9 @@ const Cart = () => {
     const [cart, setCart] = useCartContext();
     const [userdata, setUserdata] = useState({});
     const navigate = useNavigate();
-
+    const [clientToken, setClientToken] = useState("");
+    const [instance, setInstance] = useState("");
+    const [loading, setLoading] = useState(false);
     const headers = {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -33,7 +38,10 @@ const Cart = () => {
             cart.map((item) => {
                 total += item.price;
             });
-            return total;
+            return total.toLocaleString("en-US", {
+                style: "currency",
+                currency: "INR",
+              });
         } catch (error) {
             console.log(error);
         }
@@ -49,6 +57,19 @@ const Cart = () => {
             console.log(error);
         }
     }
+    // get client token
+    const getClientToken = async () => {
+        try {
+            const {data} = await axios.get("/api/v1/product/braintree/token");
+            setClientToken(data?.clientToken);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    useEffect(() => {
+        getClientToken();
+    }, [auth?.token]);
 
     useEffect(() => {
         getGoogleUserData();
@@ -68,7 +89,6 @@ const Cart = () => {
                     </h1>
                 </div>
                 <div className="flex flex-row ml-2 p-2">
-                    {/* <h1>Hello {Object?.keys(userdata)?.length > 0 ? userdata.displayName : auth.user?.name}</h1> */}
                     
                     
                 
@@ -81,7 +101,7 @@ const Cart = () => {
                         </div>
                         <div className="m-2">
                             <h1 className="text-md font-serif font-semibold">{item.name}</h1>
-                            <h1 className="text-md font-serif font-normal">Price: ${item.price}</h1>
+                            <h1 className="text-md font-serif font-normal">Price: Rs. {item.price}</h1>
                             <div className="flex flex-row">
                             <div><h1 className="text-md mt-2 mr-2 font-serif font-normal">Quantity: </h1></div>
                             <div><button className=" max-w-fit font-serif ml-2 bg-gradient-to-br from-red-600 to-red-200   text-gray-50  p-2 rounded-md"    
@@ -104,8 +124,51 @@ const Cart = () => {
                 <hr className="bg-gray-300 mb-6 h-0.5 "></hr>
                 <div>
                     <h1 className="text-md font-serif ">Total Items: {cart.length}</h1>
-                    <h1 className="text-md font-serif ">Total Price: ${getTotalPrice()}</h1>
+                    <h1 className="text-md font-serif ">Total Price:  {getTotalPrice()}</h1>
                 </div>
+                <div>
+                {auth?.user?.address && (
+                <>
+                    <div className="">
+                    <h4 className="text-sm font-serif ">Current Address: {auth?.user?.address}
+                    
+                    <button
+                        className="btn btn-outline-warning text-blue-400 m-2 underline underline-offset-2  text-sm rounded-md"
+                        onClick={() => navigate("/dashboard/user/profile")}
+                    >
+                        Update Address?
+                    </button>
+                    </h4>
+                    </div>
+                </>
+                ) }
+                {auth?.token || (Object?.keys(userdata)?.length > 0 ) ? (
+                    <>
+                   
+                    
+                        <NavLink className=" max-w-fit mt-2  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md"
+                                   target="_self"
+                                   to="/paymentpage">
+                            <button className=" max-w-fit m-2  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md">
+                                Proceed to Payment
+                            </button>
+                        </NavLink>
+                                
+                    
+                    </>
+                  
+                ) : (
+                <button className=" max-w-fit m-2  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md"
+
+                    onClick={() =>
+                      navigate("/login", {
+                        state: "/cart",
+                      })
+                    }
+                  >
+                    Plase Login to checkout
+                  </button>
+                )}
                 
                 <div className="flex justify-center items-end mt-20 font-medium">
                     
@@ -114,15 +177,11 @@ const Cart = () => {
                         Continue Shopping
                     </button>
                 </div>
-                <div className="flex justify-center items-end font-medium">
-                <button className=" max-w-fit m-2  bg-gradient-to-br from-amber-300 to-amber-100   text-gray-600  p-2 rounded-md"
-                        onClick={() => navigate("/checkout")}>
-                    Proceed to Checkout
-                </button>
-                </div>
+
             </div>
             </div>
             </div>
+        </div>
         </div>
     );
 };

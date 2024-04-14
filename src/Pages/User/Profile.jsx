@@ -144,7 +144,9 @@ const Profile = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         className="items-start justify-start max-w-full mb-12 mr-2 h-10 px-4 ml-2 mt-2 text-base bg-blue-100 placeholder-gray-400 italic font-serif border rounded-lg focus:shadow-outline"></input>
                    
-                    <button type= "submit" className=" flex justify-center mr-8 ml-8 mt-6  py-2  text-small font-medium text-center text-gray-50 bg-gradient-to-b from-blue-400 to-blue-300 rounded-lg  focus:ring-blue-200 p-4 hover:bg-gray-800">
+                    <button type= "submit" 
+                            
+                            className=" flex justify-center mr-8 ml-8 mt-6  py-2  text-small font-medium text-center text-gray-50 bg-gradient-to-b from-blue-400 to-blue-300 rounded-lg  focus:ring-blue-200 p-4 hover:bg-gray-800">
                         Update
                     </button>
                     <ToastContainer />

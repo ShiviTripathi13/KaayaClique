@@ -26,6 +26,7 @@ import SearchProduct from './Pages/SearchProduct';
 import ProductDetails from './Pages/ProductDetails';
 import Categories from './Pages/Categories';
 import CategoryWiseProduct from './Pages/CategoryWiseProduct';
+import Payment from './Pages/Payment';
 function App() {
   return (
     <Router>
@@ -58,6 +59,7 @@ function App() {
       </Route>
       <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<SignUp/>} />
+      <Route path="/paymentpage" element={<Payment/>} />
       <Route path="*" element={<Error/>} />
     </Routes>
     <Footer/>

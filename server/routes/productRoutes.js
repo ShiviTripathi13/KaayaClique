@@ -14,7 +14,9 @@ const { createProductController,
         productPerPageController,
         searchProductController,
         similarProductController,
-        categoryWiseProductController } = require('../controllers/productController.js');
+        categoryWiseProductController,
+        braintreeTokenController,
+        braintreePaymentsController } = require('../controllers/productController.js');
 
 // create product
 router.post('/create-product', requireLogin, requireAdmin, formidable(), createProductController);
@@ -51,5 +53,11 @@ router.get('/similar-products/:pid/:cid', similarProductController);
 
 // category wise products
 router.get('/product-category/:slug', categoryWiseProductController);
+
+// payement token route
+router.get('/braintree/token', braintreeTokenController);
+
+// payment route
+router.post('/braintree/payment', requireLogin,  braintreePaymentsController);
 
 module.exports = router;

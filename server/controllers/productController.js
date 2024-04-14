@@ -1,8 +1,31 @@
+require('dotenv').config();
 const productdb = require('../model/productSchema.js');
 const categorydb = require('../model/categorySchema.js');
+const orderdb = require('../model/orderSchema.js');
 const slugify = require('slugify');
 const fs = require('fs');
+const braintree = require('braintree');
+const e = require('express');
 
+
+const BRAINTREE_MERCHANT_ID = require('../config/keys.js').BRAINTREE_MERCHANT_ID;
+const BRAINTREE_PUBLIC_KEY = require('../config/keys.js').BRAINTREE_PUBLIC_KEY;
+const BRAINTREE_PRIVATE_KEY = require('../config/keys.js').BRAINTREE_PRIVATE_KEY;
+const braintree_merchant_id = process.env.BRAINTREE_MERCHANT_ID || BRAINTREE_MERCHANT_ID;
+const braintree_public_key = process.env.BRAINTREE_PUBLIC_KEY || BRAINTREE_PUBLIC_KEY;
+const braintree_private_key = process.env.BRAINTREE_PRIVATE_KEY || BRAINTREE_PRIVATE_KEY;
+
+// braintree gateway
+
+var gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: braintree_merchant_id,
+    publicKey: braintree_public_key,
+    privateKey: braintree_private_key,
+  });
+
+
+// create product controller
 const createProductController = async (req, res) => {
     try {
         const { name, slug, price, description, category, quantity, shipping } = req.fields;
@@ -338,6 +361,53 @@ const categoryWiseProductController = async (req, res) => {
     }
 }
 
+// payement gateway token controller
+const braintreeTokenController = async (req, res) => {
+    try{
+        gateway.clientToken.generate({}, (error, response) => {
+            if(error){
+                return res.status(500).send({error: error});
+            }
+            res.status(200).send(response);
+            // send({token: response.clientToken})
+        });
+    
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// payment controller
+const braintreePaymentsController = async (req, res) => {
+    try{
+       const {cart, nonce} = req.body;
+        let total = 0;
+        cart.map((item) => {
+            total += item.price;
+        });
+        let newTransaction = gateway.transaction.sale({
+            amount: total,
+            paymentMethodNonce: nonce,
+            options: {
+                submitForSettlement: true
+            }
+        }, (error, result) => {
+            if(result){
+                const order = new orderdb({
+                    products: cart,
+                    payment: result,
+                    orderedBy: req.user._id
+                }).save();
+                res.json({ok: true, message: "Payment successful"});
+            } else {
+                res.status(500).send({error: error});
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {createProductController, 
                     getAllProductsController,
                     getSingleProductController,
@@ -349,4 +419,6 @@ module.exports = {createProductController,
                     productPerPageController,
                     searchProductController,
                     similarProductController,
-                    categoryWiseProductController};
+                    categoryWiseProductController,
+                    braintreeTokenController,
+                    braintreePaymentsController};
