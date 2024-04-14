@@ -10,7 +10,7 @@ const requireLogin = (req, res, next) => {
         req.user = decoded;
         next();
     } catch(err) {
-        console.log(err);
+        //console.log(err);
         res.status(500).send({
             success: false,
             message: "Something went wrong in login",
@@ -32,7 +32,7 @@ const requireAdmin = async (req, res, next) => {
             next();
         }
     } catch(err) {
-        console.log(err);
+        //console.log(err);
         res.status(500).send({
             success: false,
             message: "Something went wrong in admin login",

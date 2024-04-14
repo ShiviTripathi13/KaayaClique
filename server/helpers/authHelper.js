@@ -7,7 +7,7 @@ const hashPassword = async (password) => {
         return hashedPassword;
     }
     catch(err){
-        console.log(err);
+        //console.log(err);
         return err;
     }
 };
@@ -18,7 +18,7 @@ const comparePassword = async (password, hashedPassword) => {
         return isMatch;
     }
     catch(err){
-        console.log(err);
+        //console.log(err);
         return err;
     }
 }

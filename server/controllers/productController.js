@@ -63,7 +63,7 @@ const createProductController = async (req, res) => {
         });
         
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in creating product",
@@ -85,7 +85,7 @@ const getAllProductsController = async (req, res) => {
             products,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching products",
@@ -108,7 +108,7 @@ const getSingleProductController = async (req, res) => {
             product,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching product",
@@ -120,14 +120,14 @@ const getSingleProductController = async (req, res) => {
 const productPhotoController = async (req, res) => {
     try {
         const product = await productdb.findById( req.params.pid).select("photo");
-        // console.log("producr: ", product);
+        // //console.log("producr: ", product);
         // res.json(product);
         if(product.photo.data){
             res.set("Content-Type", product.photo.contentType);
             return res.status(200).send(product.photo.data);
         }
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching product photo",
@@ -142,7 +142,7 @@ const deleteProductController = async (req, res) => {
         res.status(200).send({success: true, message: "Product deleted successfully"});
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in deleting product",
@@ -155,7 +155,7 @@ const updateProductController = async (req, res) => {
     try {
         const { name, slug, price, description, category, quantity, shipping } = req.fields;
         const { photo } = req.files;
-        console.log("photo",photo);
+        //console.log("photo",photo);
         // check if all fields are filled
        switch (true) {
             case !name:
@@ -190,7 +190,7 @@ const updateProductController = async (req, res) => {
         });
         
     } catch (error) {
-        console.log(error); 
+        //console.log(error); 
         res.status(501).send({
             success: false,
             message: "Something went wrong in updating product",
@@ -222,7 +222,7 @@ const productFiltersController = async (req, res) => {
             
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching product filters",
@@ -241,7 +241,7 @@ const productCountController = async (req, res) => {
             productCount,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching product count",
@@ -266,7 +266,7 @@ const productPerPageController = async (req, res) => {
             products,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(400).send({
             success: false,
             message: "Something went wrong in fetching products per page",
@@ -298,9 +298,9 @@ const searchProductController = async (req, res) => {
             message: "Search result",
             products,
         });
-        // console.log(products);
+        // //console.log(products);
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in searching products",
@@ -326,7 +326,7 @@ const similarProductController = async (req, res) => {
             products,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching similar products",
@@ -339,9 +339,9 @@ const similarProductController = async (req, res) => {
 const categoryWiseProductController = async (req, res) => {
     try {
         const slug = req.params.slug;
-        console.log("slug: ",slug);
+        //console.log("slug: ",slug);
         const category = await categorydb.findOne({slug});
-        console.log("category in controller: ",category);
+        //console.log("category in controller: ",category);
         const products = await productdb.find({category})
                                         .populate("category")
                                         .select("-photo");
@@ -352,7 +352,7 @@ const categoryWiseProductController = async (req, res) => {
             products,
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         res.status(500).send({
             success: false,
             message: "Something went wrong in fetching category wise products",
@@ -373,7 +373,7 @@ const braintreeTokenController = async (req, res) => {
         });
     
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 }
 
@@ -404,7 +404,7 @@ const braintreePaymentsController = async (req, res) => {
             }
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 }
 

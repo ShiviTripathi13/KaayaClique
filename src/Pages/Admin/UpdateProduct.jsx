@@ -24,7 +24,7 @@ const UpdateProduct = () => {
     const getProduct = async () => {
         try {
             const { data } = await axios.get(`/api/v1/product/single-product/${params.slug}`);
-            //  console.log(data);
+            //  //console.log(data);
             setName(data.product.name);
             setId(data.product._id);
             setDescription(data.product.description);   
@@ -33,7 +33,7 @@ const UpdateProduct = () => {
             setQuantity(data.product.quantity);
             setShipping(data.product.shipping);
             // setPhoto(data.product.photo);
-            // console.log("product photo: ", data.product.photo);
+            // //console.log("product photo: ", data.product.photo);
         } catch (err) {
             console.error(err.message);
             toast.error("Error to get product");
@@ -69,11 +69,11 @@ const UpdateProduct = () => {
             productData.append("category", category);
             productData.append("quantity", quantity);
             // productData.append("shipping", shipping);
-            // console.log("photo: ",  photo);
+            // //console.log("photo: ",  photo);
             // photo && productData.append("photo", photo);
-            console.log("productData: ", productData);
+            //console.log("productData: ", productData);
             const { data } = await axios.put(`/api/v1/product/update-product/${id}`, productData);
-            console.log(data);
+            //console.log(data);
             if(data?.success){
                 toast.success("Product updated successfully");
                 navigate("/dashboard/admin/products");

@@ -26,7 +26,7 @@ const Cart = () => {
             const response = await axios.get("http://localhost:8000/login/sucess", { withCredentials: true, headers: headers }); 
             setUserdata(response.data.user);
         } catch (err) {
-            console.log("error", err);
+            //console.log("error", err);
         }
     }
 
@@ -42,7 +42,7 @@ const Cart = () => {
                 currency: "INR",
               });
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
 
@@ -53,7 +53,7 @@ const Cart = () => {
             setCart(newCart);
             localStorage.setItem("cart", JSON.stringify(newCart));
        } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     // get client token
@@ -62,7 +62,7 @@ const Cart = () => {
             const {data} = await axios.get("/api/v1/product/braintree/token");
             setClientToken(data?.clientToken);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     

@@ -23,7 +23,7 @@ const Payment = () => {
             const {data} = await axios.get("/api/v1/product/braintree/token");
             setClientToken(data?.clientToken);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     // handle payment
@@ -38,7 +38,7 @@ const Payment = () => {
             toast.success("Payment Successfull");
             navigate("/dashboard/user/orders");
         } catch (error) {
-            console.log(error);
+            //console.log(error);
             setLoading(false);
         }
     }

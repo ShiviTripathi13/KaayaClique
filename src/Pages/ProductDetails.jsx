@@ -15,7 +15,7 @@ const ProductDetails = () => {
             setProduct(data?.product);
             getSimilarProducts(data?.product?._id, data?.product?.category?._id);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     useEffect(() => {
@@ -30,7 +30,7 @@ const ProductDetails = () => {
             const {data} = await axios.get(`/api/v1/product/similar-products/${pid}/${cid}`);
             setSimilarProducts(data?.products);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }
     return (
