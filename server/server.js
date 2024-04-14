@@ -35,7 +35,7 @@ app.use(cors(
     }
 ));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '/build')));
 
 
 //auth routes
@@ -125,7 +125,7 @@ app.use("/api/v1/category",categoryRoutes);
 app.use("/api/v1/product",productRoutes);
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '/build', 'index.html'));
 }
 );
 
