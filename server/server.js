@@ -11,7 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth2').Strategy;
 const userdb = require('./model/userSchema.js');
-
+const path = require('path');
 
 // keys
 const GOOGLE_CLIENT_ID = require('./config/keys.js').GOOGLE_CLIENT_ID;
@@ -35,6 +35,7 @@ app.use(cors(
     }
 ));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '/build')));
 
 
 //auth routes
@@ -122,6 +123,11 @@ app.get("/logout",(req,res,next)=>{
 app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/category",categoryRoutes);
 app.use("/api/v1/product",productRoutes);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build', 'index.html'));
+}
+);
 
 // connection to the port/server
 app.listen(port, () => {
