@@ -32,12 +32,14 @@
   },
   "proxy": "http://localhost:8000",
   "scripts": {
+    
+  
    
     "client": "react-scripts start",
     "server": "nodemon server/server.js",
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "build": "react-scripts build",
-    "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

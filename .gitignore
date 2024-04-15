@@ -24,6 +24,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+
+.env
+/config/keys.js
+keys.js
 # secrets and keys
 /server/config
 
