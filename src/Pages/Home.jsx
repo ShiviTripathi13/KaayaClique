@@ -154,9 +154,9 @@ const Home = () => {
                     <div className=" grid grid-cols-4 rounded-lg overflow-scroll">
                     {products?.map((product) => (
                         
-                            <div key={product._id} className=" shadow-lg rounded-md m-2 ">
+                            <div key={product._id} className=" grid grid-rows-2 shadow-lg rounded-md m-2 ">
                                 <div className="">
-                                    <img className=" object-cover h-full w-full  " 
+                                    <img className=" object-fill h-full w-full  " 
                                         src={`/api/v1/product/product-photo/${product._id}`}
                                        
                                         alt={""} />
